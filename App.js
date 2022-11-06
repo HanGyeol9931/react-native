@@ -18,8 +18,11 @@ export default function App() {
     const {coords : {latitude,longitude}} = await Location.getCurrentPositionAsync()
     const location = await Location.reverseGeocodeAsync({latitude,longitude},{useGoogleMaps : false});
     setCity(location[0].city);
-    fetch()
-    console.log(location);    
+    const respone = fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}`)
+    const json  = await (await respone).json()
+    console.log(json.daily)  
+    // console.log(json.daily)  
+    setDays(json.daily) 
   }
   useEffect(()=>{
     ask()
